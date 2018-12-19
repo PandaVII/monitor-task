@@ -1,0 +1,9 @@
+
+.classpath
+.gitattributes
+.project
+*.prefs
+src/test/*
+src/main/java/com/common/utils/Mail.java
+*.class
+target/*

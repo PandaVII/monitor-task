@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 import com.common.utils.JDBCUtil;
 import com.common.utils.Mail;
 import com.common.utils.PropertiesUtil;
-import com.common.utils.constant.TaskStatus;
 import com.common.utils.constant.TaskAlarmStatus;
 
 /**

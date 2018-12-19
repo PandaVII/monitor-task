@@ -13,17 +13,15 @@ import org.quartz.ListenerManager;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerListener;
+import org.quartz.Trigger.TriggerState;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
-import org.quartz.TriggerListener;
-import org.quartz.Trigger.TriggerState;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.common.listener.MonitorJobListener;
 import com.common.listener.MonitorScheduleListener;
-import com.common.listener.MonitorTriggerListener;
 import com.common.utils.constant.TaskStatus;
 
 public class QuartzPlugin {
@@ -100,7 +98,7 @@ public class QuartzPlugin {
 	/**
 	 * 开启Quartz
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static boolean start(){
 		/**
     	 * 首次运行

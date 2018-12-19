@@ -9,8 +9,6 @@ import org.quartz.TriggerListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.common.task.MainJob;
-
 public class MonitorTriggerListener implements TriggerListener{
 
 	private final static Logger logger=LoggerFactory.getLogger(MonitorTriggerListener.class);

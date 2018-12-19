@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
@@ -15,16 +13,13 @@ import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.common.thread.JobFailMonitorThread;
 import com.common.utils.JDBCUtil;
-import com.common.utils.PropertiesUtil;
 import com.common.utils.QuartzPlugin;
 import com.common.utils.constant.TaskStatus;
 
 public class MainJob implements Job{
 	private static Logger log = LoggerFactory.getLogger(MainJob.class);
 	
-	private static String ipAddress = PropertiesUtil.getInstance().getProperty("nodeIP");
 	
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		

@@ -8,9 +8,6 @@ import org.quartz.SchedulerListener;
 import org.quartz.Trigger;
 import org.quartz.TriggerKey;
 
-import com.common.task.MainJob;
-import com.common.utils.JDBCUtil;
-
 public class MonitorScheduleListener implements SchedulerListener{
 
 	private final static Logger logger=Logger.getLogger(MonitorScheduleListener.class);
