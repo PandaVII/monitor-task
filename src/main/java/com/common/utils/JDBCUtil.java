@@ -11,7 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 /**
@@ -23,7 +25,7 @@ import org.apache.log4j.Logger;
  */
 public class JDBCUtil {
 
-	private static Logger log = Logger.getLogger(JDBCUtil.class);
+	private static Logger log = LoggerFactory.getLogger(JDBCUtil.class);
 	
 	private static JDBCpool pool = new JDBCpool();
     

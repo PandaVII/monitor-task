@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 
 public class PropertiesUtil extends Properties{
@@ -14,7 +16,7 @@ public class PropertiesUtil extends Properties{
 	 */
 	private static final long serialVersionUID = 2742497912500366976L;
 	
-	public Logger log = Logger.getLogger(PropertiesUtil.class);
+	public Logger log = LoggerFactory.getLogger(PropertiesUtil.class);
 	
 	private static PropertiesUtil instance;
 	

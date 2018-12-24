@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.common.utils.JDBCUtil;
 import com.common.utils.Mail;
@@ -18,7 +19,7 @@ import com.common.utils.constant.TaskAlarmStatus;
  * @author
  */
 public class JobFailMonitorThread {
-	private static Logger logger = Logger.getLogger(JobFailMonitorThread.class);
+	private static Logger logger = LoggerFactory.getLogger(JobFailMonitorThread.class);
 	
 	
 	private static String QUERY_TSM_TASK_LOG_FAIL = " SELECT * FROM TSM_TASK_LOG WHERE ALARM_STATUS in(?,?) order by id desc limit 100 ";
@@ -46,7 +47,7 @@ public class JobFailMonitorThread {
 					try {
 							//查询任务日志列表
 							List<Map<String,Object>> list = JDBCUtil.query(QUERY_TSM_TASK_LOG_FAIL,TaskAlarmStatus.DEFAULT,TaskAlarmStatus.ALARAM_FAIL);//查询自动暂停的任务、异常、失败
-							System.out.println("异常日志数||||||>>>>"+list.size());
+							logger.info("异常日志邮件>>>>>>>{}",list.size());
 							for (Map<String, Object> map : list) {
 								String taskLogID = map.get("ID").toString();
 								List<Map<String, Object>> taskList = JDBCUtil.query(" SELECT * FROM TSM_TASK_INFO WHERE ID = ? ",map.get("TASK_ID"));
@@ -75,7 +76,6 @@ public class JobFailMonitorThread {
 								JDBCUtil.update(" UPDATE TSM_TASK_LOG SET ALARM_STATUS = ? WHERE ID= ? ", newAlarmStatus,taskLogID);
 							}
 
-//						TimeUnit.SECONDS.sleep(1);
 						TimeUnit.MINUTES.sleep(1); //1分钟运行一次
 					}catch (InterruptedException e) {
 						logger.info(MessageFormat.format("job monitor {0},{1}", JobFailMonitorThread.class,"已中断"));

@@ -86,14 +86,16 @@ public class NodeMonitorThread {
 			if(QuartzPlugin.scheduler == null){
 				QuartzPlugin.start();
 			    JobFailMonitorThread.getInstance().start(); // 启动任务失败邮件监控线程
-			    uploadNodeLog(map, "节点启动");
+			    LogFileMonitorThread.getInstance().start();
+			    logger.info(" >>>> 节点启动 ");
 			}
 			break;
 		case NodeStatus.STOP:
 			if(QuartzPlugin.scheduler != null){
 				JobFailMonitorThread.getInstance().toStop();
+				LogFileMonitorThread.getInstance().toStop();
 				QuartzPlugin.stop();
-				uploadNodeLog(map, "节点停止");
+				logger.info(" >>>> 节点停止 ");
 			}
 			break;
 		default:
@@ -101,6 +103,7 @@ public class NodeMonitorThread {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void uploadNodeLog(Map<String, Object> map,String msg){
 		JDBCUtil.update(" insert into TSM_NODE_LOG (NODE_ID,NODE_NAME,NODE_CPU,NODE_MEM,NODE_OPER_MSG,UPDATE_TIME)"
 				+ " VALUES(?,?,?,?,?,now()) ", map.get("ID"),map.get("NODE_NAME"),"40%","50%",msg);

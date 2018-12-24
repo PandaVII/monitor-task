@@ -12,13 +12,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
  
 //定时将指定文件夹下的所有文件压缩
 public class ZipFilesUtil {
-	private static Logger log = Logger.getLogger("zipfiles");
+	private static Logger log = LoggerFactory.getLogger(ZipFilesUtil.class);
 	
 	
 	//将指定文件夹下的所有文件(除压缩文件除外)压缩，该文件夹下没有子文件夹，否则需递归进行处理
@@ -37,7 +39,7 @@ public class ZipFilesUtil {
  
  
 		String zipName =  generateId();//生产压缩文件名
-		File zipFile = new File(sourceFile+"\\"+zipName+".zip");
+		File zipFile = new File(sourceFile+File.separator+zipName+".zip");
 		File[] sourceFiles = sourceFile.listFiles();
 		if(null == sourceFiles || sourceFiles.length<1){
 			log.info("待压缩的文件目录：" + sourceFilePath + "里面不存在文件，无需压缩.");
@@ -68,21 +70,18 @@ public class ZipFilesUtil {
 				fis.close();//很重要，否则删除不掉!
 				sourceFiles[i].delete();//将要进行压缩的源文件删除
 			}//end for
-			log.info("文件打包成功！");
+			log.debug("文件打包成功！");
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("文件打包失败",e);
 		} finally{
 			//关闭流
 			try {
 				if(null!=bis)
 					bis.close();
 				if(null!=zos)
-					//zos.closeEntry();
 					zos.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 		}
